@@ -2,6 +2,7 @@ import NavBar from './navbar';
 import Hero from './hero';
 import Cards from './cards';
 import CompanyAccordian from './companies/accordian';
+import CompanyTable from './test';
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
             <Hero />
             <Cards />
             <CompanyAccordian />
+            <CompanyTable />
         </>
     );
 }

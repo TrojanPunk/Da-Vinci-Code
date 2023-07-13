@@ -1,58 +1,58 @@
 import React, { useEffect, useState } from 'react';
-import firebase from 'firebase';
-import 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs } from "firebase/firestore";
+
+class Problem {
+  problem_link;
+  problem_name;
+  Problems(problem_name, problem_link){
+    this.problem_link = problem_link
+    this.problem_name = problem_name
+  }
+}
+let problemsArray = [];
 
 const CompanyTable = () => {
   // Add your Firebase configuration object here
   const firebaseConfig = {
     apiKey: "AIzaSyBaVDE2tIMOmzrC4-Q00LPP2hydRHaC4ak",
-  authDomain: "da-vinci-code-5bc6b.firebaseapp.com",
-  projectId: "da-vinci-code-5bc6b",
-  storageBucket: "da-vinci-code-5bc6b.appspot.com",
-  messagingSenderId: "439603548198",
-  appId: "1:439603548198:web:1caf8020d4f143e63d16e7",
-  measurementId: "G-BTGN8HHEZ7"
+    authDomain: "da-vinci-code-5bc6b.firebaseapp.com",
+    projectId: "da-vinci-code-5bc6b",
+    storageBucket: "da-vinci-code-5bc6b.appspot.com",
+    messagingSenderId: "439603548198",
+    appId: "1:439603548198:web:1caf8020d4f143e63d16e7",
+    measurementId: "G-BTGN8HHEZ7"
   };
 
   // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+  
 
   // Export Firestore instance
-  const firestore = firebase.firestore();
 
   const [companies, setCompanies] = useState([]);
 
   useEffect(() => {
     // Fetch companies collection
     const fetchCompanies = async () => {
-      const companiesRef = firestore.collection('companies');
-      const companiesSnapshot = await companiesRef.get();
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
 
-      // Extract companies' data
-      const companyData = companiesSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-
-      // Fetch and merge problems subcollection for each company
-      const companiesWithProblems = await Promise.all(
-        companyData.map(async (company) => {
-          const problemsRef = companiesRef.doc(company.id).collection('problems');
-          const problemsSnapshot = await problemsRef.get();
-
-          const problemsData = problemsSnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-
-          return {
-            ...company,
-            problems: problemsData,
-          };
-        })
-      );
-
-      setCompanies(companiesWithProblems);
+      //DO THIS LINE FOR EVERY COMPANY, 
+      // CREATE A LIST OF COMPANIES, 
+      // OR MAKE ALL THE COMPANIES COLLECTIONS IN YOUR DATABSE, 
+      // BECAUSE FIREBASE DOESN'T ALLOW QUERRYING SUBCOLLECTIONS 
+      // INSIDE A DOCUMENT FOR SECURITY REASONS
+      // REPALCE ADOBE WITH A TEMPLATE VARIABLE INSIDE A FOR LOOP
+      const snapProblems = await getDocs(collection(db, "companies/Adobe/problems"));
+      snapProblems.forEach((doc)=>{
+        const data = doc.data()
+        const problem_name = data["problem_name"]
+        const problem_link = data["problem_link"]
+        console.log(problem_name, problem_link)
+        let problem = new Problem(problem_name,problem_link)
+        // STORE IN ARRAY OR HASHMAP FOR LATER USE, MAKE SURE THE DATASTRUCTURE IS GLOBAL. 
+        problemsArray.push(problem);
+      })
     };
 
     fetchCompanies();
