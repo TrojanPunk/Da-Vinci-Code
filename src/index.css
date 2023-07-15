@@ -232,17 +232,50 @@ html {
   font-size: 16px;
   color: #fff;
   font-weight: 600;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+#prob-header {
   text-align: left;
 }
 
+#prob-freq {
+  color: #fff;
+  text-align: center;
+}
+
+#prob-status {
+  text-align: center;
+}
+
+#prob-name {
+  text-align: left;
+  color: #fff;
+}
+
+#data-row {
+  margin: 2% 0 2% 0;
+  font-weight: 600;
+}
+
 @media screen and (max-width: 1200px) {
-  #column-name {
+  .row {
     font-size: 12px;
+  }
+
+  #column-name {
+    margin-bottom: 20px;
   }
 }
 
 @media screen and (max-width: 1080px) {
-  #column-name {
+  .row {
     font-size: 10px;
   }
+
+  #column-name {
+    margin-bottom: 10px;
+  }
 }
+
