@@ -46,6 +46,7 @@ html {
   margin-bottom: 0;
   font-size: 16px;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .problemsTab::before {
@@ -69,12 +70,23 @@ html {
   transform: scaleX(1);
 }
 
+.problemsTab:focus::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+.problemsTab:active::before {
+  transform-origin: left;
+  transform: scaleX(1);
+}
+
+
 #gradient-canvas {
-  width:100%;
-  height:100%;
-  --gradient-color-1: #ffd232; 
-  --gradient-color-2: #ffbe32; 
-  --gradient-color-3: #ffe561;  
+  width: 100%;
+  height: 100%;
+  --gradient-color-1: #ffd232;
+  --gradient-color-2: #ffbe32;
+  --gradient-color-3: #ffe561;
   --gradient-color-4: #11161a;
 }
 
@@ -200,11 +212,13 @@ html {
 
 @media screen and (max-width: 1200px) {
   .cardsContainer {
-    justify-content: flex-start; /* Align cards to the left */
+    justify-content: flex-start;
+    /* Align cards to the left */
   }
 
   .card-frame {
-    margin-top: 2%; /* Reduce the top margin to create a better alignment */
+    margin-top: 2%;
+    /* Reduce the top margin to create a better alignment */
   }
 }
 
@@ -213,7 +227,8 @@ html {
     padding-top: 60px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Align cards to the center */
+    justify-content: center;
+    /* Align cards to the center */
   }
 
   #card-image {
@@ -223,7 +238,109 @@ html {
   }
 
   .card-frame {
-    margin-top: 40px; /* Reset the top margin for vertical alignment */
+    margin-top: 40px;
+    /* Reset the top margin for vertical alignment */
+  }
+}
+
+/* Problem Header Section */
+h2 {
+  color: #ffd232;
+  font-weight: 800;
+  position: relative;
+  display: inline-block;
+  margin: 50px 100px;
+}
+
+h2:before {
+  content: "";
+  border: 2px solid rgba(255, 210, 50, 0.5);
+  position: absolute;
+  width: 200%;
+  top: 15px;
+  left: -250%;
+}
+
+h2:after {
+  content: "";
+  border: 2px solid rgba(255, 210, 50, 0.5);
+  width: 200%;
+  position: absolute;
+  top: 15px;
+  right: -250%;
+}
+
+@media screen and (max-width: 1200px) {
+  h2 {
+    font-size: large;
+  }
+
+  h2::before {
+    width: 300%;
+    left: -350%;
+    top: 10px;
+  }
+
+  h2::after {
+    width: 300%;
+    right: -350%;
+    top: 10px;
+  }
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  max-width: 90%;
+  width: 100%;
+  margin: auto;
+  margin-bottom: 3%;
+  position: relative;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  margin-left: 10px;
+}
+
+.search-company {
+  height: 50px;
+  width: 100%;
+  padding-left: 60px; /* Adjust the padding to accommodate the icon */
+  border-radius: 40px;
+  background-color: rgba(34, 38, 42, 0.4);
+  border: none;
+  color: rgb(210, 210, 210);
+  font-weight: 600;
+}
+
+.search-company:focus {
+  outline: none;
+  color: rgb(210, 210, 210);
+  font-weight: 600;
+}
+
+::placeholder {
+  color: rgba(214, 228, 253, 0.3);
+  font-weight: 500;
+}
+
+@media screen and (max-width: 1080px) {
+  h2 {
+    font-size: small;
+  }
+
+  h2::before {
+    width: 100%;
+    left: -150%;
+    top: 10px;
+  }
+
+  h2::after {
+    width: 100%;
+    right: -150%;
+    top: 10px;
   }
 }
 
@@ -255,8 +372,9 @@ html {
 }
 
 #data-row {
-  margin: 2% 0 2% 0;
+  padding: 1% 0 1% 0;
   font-weight: 600;
+  border-top: 1px solid #31373D;
 }
 
 @media screen and (max-width: 1200px) {
@@ -278,4 +396,3 @@ html {
     margin-bottom: 10px;
   }
 }
-
